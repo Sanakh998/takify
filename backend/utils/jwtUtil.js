@@ -1,7 +1,7 @@
 // utils/jwtUtil.js
 const jwt = require('jsonwebtoken');
 
-const secretKey = 'your_secret_key'; // Replace this with your actual secret key
+const secretKey = process.env.JWT_SECRET_KEY; // Replace this with your actual secret key
 const expiresIn = '1h'; // Token expiration time
 
 /**
