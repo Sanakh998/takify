@@ -11,7 +11,7 @@ const addTodo = async (req, res, next) => {
     let user = await User.findById(userId);
     user.todos.push(todo);
     await user.save();
-    res.status(201).json({ message: "Todo added successfully", data: todo });
+    res.status(201).json({success:true, message: "Todo added successfully", data: todo });
   } catch (error) {
     next(error);
   }
@@ -23,7 +23,7 @@ const getTodos = async (req, res, next) => {
     let todos = await Todo.find({ user: userId }).exec();
     res
       .status(200)
-      .json({ message: "Todos fetched successfully", data: todos });
+      .json({success:true, message: "Todos fetched successfully", data: todos });
   } catch (error) {
     next(error);
   }
@@ -40,7 +40,7 @@ const deleteTodo = async (req, res, next) => {
     let index = user.todos.indexOf(id);
     user.todos.splice(index, 1);
     await user.save();
-    res.status(200).json({message: 'Todo deleted successfully', data: todo})
+    res.status(200).json({success:true, message: 'Todo deleted successfully', data: todo})
   } catch (error) {
     next(error)
   }
@@ -56,7 +56,7 @@ const updateTodo = async (req, res, next) => {
     }
     if(title) todo.title = title;
     await todo.save();
-    res.status(200).json({message: 'Todo updated successfully', data: todo})
+    res.status(200).json({success:true, message: 'Todo updated successfully', data: todo})
   } catch (error) {
     next(error)
   }
@@ -71,7 +71,7 @@ const toggleTodoStatus = async (req, res, next) => {
     }
     todo.completed = !todo.completed;
     await todo.save()
-    res.status(200).json({message: 'Todo Status Update Successfully', data: todo})
+    res.status(200).json({success:true, message: 'Todo Status Update Successfully', data: todo})
   } catch (error) {
     next(error)
   }

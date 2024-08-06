@@ -12,7 +12,7 @@ const getUser = async (req, res, next) => {
     if (!user) {
       throw new CustomError("User not Found", 404);
     }
-    res.status(200).json({ message: "User fetched successfully", data: user });
+    res.status(200).json({success:true, message: "User fetched successfully", data: user });
   } catch (error) {
     next(error);
   }
@@ -23,7 +23,7 @@ const getUsers = async (req, res, next) => {
     let users = await User.find().select('-password');
     res
       .status(200)
-      .json({ message: "Users fetched successfully", data: users });
+      .json({success:true, message: "Users fetched successfully", data: users });
   } catch (error) {
     next(error);
   }
@@ -41,7 +41,7 @@ const registerUser = async (req, res, next) => {
     await user.save();
     res
       .status(201)
-      .json({ message: "User registered successfully", data: user });
+      .json({success:true, message: "User registered successfully", data: user });
   } catch (error) {
     if (error.code === 11000) {
       next(new CustomError("Email or Username already exists"));
@@ -63,7 +63,7 @@ let login = async (req, res, next) => {
     let token = generateToken({ id: user._id });
     res
       .status(200)
-      .json({ message: "login successful", token: token, data: user });
+      .json({success:true, message: "login successful", token: token, data: user });
   } catch (error) {
     next(error);
   }
@@ -79,7 +79,7 @@ const deleteUser = async (req, res, next) => {
     if (!user) {
       throw new CustomError("User not Found", 404);
     }
-    res.status(200).json({ message: "User deleted successfully", data: user });
+    res.status(200).json({success:true, message: "User deleted successfully", data: user });
   } catch (error) {
     next(error);
   }
@@ -102,7 +102,7 @@ const updateUser = async (req, res, next) => {
       throw new CustomError("User not found", 404);
     }
 
-    res.status(200).json({ message: "User updated successfully", data: user });
+    res.status(200).json({success:true, message: "User updated successfully", data: user });
   } catch (error) {
     next(error);
   }
